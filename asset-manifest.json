@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/CpuScheduling/static/css/main.073c9b0a.css",
-    "main.js": "/CpuScheduling/static/js/main.ce736081.js",
+    "main.js": "/CpuScheduling/static/js/main.a5e33f5f.js",
     "static/media/ps19.png": "/CpuScheduling/static/media/ps19.a334696191b06d770d40.png",
     "static/media/ps18.png": "/CpuScheduling/static/media/ps18.5579c7ef66be312ebe6c.png",
     "static/media/ps10.png": "/CpuScheduling/static/media/ps10.9a9db4549f86de8d1065.png",
@@ -17,6 +17,7 @@
     "static/media/ps16.png": "/CpuScheduling/static/media/ps16.0f1258cdf7027bb589bb.png",
     "static/media/ps4.png": "/CpuScheduling/static/media/ps4.d80bfe1c55ccd7771ff3.png",
     "static/media/ps22.png": "/CpuScheduling/static/media/ps22.bddea9212da7e34d39b7.png",
+    "static/media/Jemin2.png": "/CpuScheduling/static/media/Jemin2.d0beaf6a41c0fbf24dc2.png",
     "static/media/rr8.png": "/CpuScheduling/static/media/rr8.e9827e278ab7c77adca7.png",
     "static/media/rr7.png": "/CpuScheduling/static/media/rr7.0fee25b393420d0dbc79.png",
     "static/media/rr6.png": "/CpuScheduling/static/media/rr6.a6b5f7f18cc9bc1a40ff.png",
@@ -34,16 +35,19 @@
     "static/media/sjfExample21.png": "/CpuScheduling/static/media/sjfExample21.c8bf46ab058a23cd8a3e.png",
     "static/media/sjfExample18.png": "/CpuScheduling/static/media/sjfExample18.2a544f588332aa4a1353.png",
     "static/media/sjfExample5.png": "/CpuScheduling/static/media/sjfExample5.348a13c5f165defe6e51.png",
+    "static/media/jemil.png": "/CpuScheduling/static/media/jemil.f1672c9e61afbfb1158e.png",
     "static/media/sjfExample29.png": "/CpuScheduling/static/media/sjfExample29.d31b77f7c79c9956c3e3.png",
     "static/media/sjfExample28.png": "/CpuScheduling/static/media/sjfExample28.fbac7b7921631ef07034.png",
     "static/media/ps14.png": "/CpuScheduling/static/media/ps14.71d16b9b3a20ce7dee1e.png",
     "static/media/sjfExample25.png": "/CpuScheduling/static/media/sjfExample25.a79aa927c36b2ee09f96.png",
     "static/media/sjfExample22.png": "/CpuScheduling/static/media/sjfExample22.03a33f7d65ef1d17ba2a.png",
     "static/media/sjfExample27.png": "/CpuScheduling/static/media/sjfExample27.d93e8be4b87522a2bce3.png",
+    "static/media/3.svg": "/CpuScheduling/static/media/3.ffc595ec8ce329e6e422f33a3a7907d1.svg",
     "static/media/rr9.png": "/CpuScheduling/static/media/rr9.e4c97182910a91c0219b.png",
     "static/media/fcfsExample15.png": "/CpuScheduling/static/media/fcfsExample15.9963c4371411a9692ead.png",
     "static/media/sjfExample24.png": "/CpuScheduling/static/media/sjfExample24.2921768550fa9f7cebd0.png",
     "static/media/sjfExample11.png": "/CpuScheduling/static/media/sjfExample11.cf590971bac8913dab4a.png",
+    "static/media/4.svg": "/CpuScheduling/static/media/4.e7fd0478451b8d72ff9b93b1ea475b66.svg",
     "static/media/ps8.png": "/CpuScheduling/static/media/ps8.2327b03c6cbcb04fc8e2.png",
     "static/media/ps17.png": "/CpuScheduling/static/media/ps17.83741aa13748bb2d5d3d.png",
     "static/media/fcfsExample16.png": "/CpuScheduling/static/media/fcfsExample16.d2d78473f9322bf5b135.png",
@@ -67,20 +71,22 @@
     "static/media/fcfsExample5.png": "/CpuScheduling/static/media/fcfsExample5.ca51d932ca7302a88c28.png",
     "static/media/fcfsExample13.png": "/CpuScheduling/static/media/fcfsExample13.e75645113d3e59304735.png",
     "static/media/sjfExample4.png": "/CpuScheduling/static/media/sjfExample4.a9986127c6316670a140.png",
+    "static/media/2.svg": "/CpuScheduling/static/media/2.a62ef174eb311054c309258dc2c582b8.svg",
     "static/media/sjfExample17.png": "/CpuScheduling/static/media/sjfExample17.1a7e7c1a94a4fd8aa4ad.png",
     "static/media/fcfsExample17.png": "/CpuScheduling/static/media/fcfsExample17.496813ac7553fc575f0c.png",
     "static/media/sjfExample2.png": "/CpuScheduling/static/media/sjfExample2.ada86637dba68329ba50.png",
     "static/media/fcfsExample7.png": "/CpuScheduling/static/media/fcfsExample7.1d7faf79b7341af9c1f1.png",
+    "static/media/1.svg": "/CpuScheduling/static/media/1.ca62402fbc6de9e75fb8f389c9bc49e7.svg",
     "static/media/fcfsExample3.png": "/CpuScheduling/static/media/fcfsExample3.c807044a02c60a9f40bd.png",
     "static/media/rr1.png": "/CpuScheduling/static/media/rr1.46a12c112bc99104d328.png",
     "static/media/sjfExample16.png": "/CpuScheduling/static/media/sjfExample16.c854e2d52f9eaf95c332.png",
     "static/media/sjfExample15.png": "/CpuScheduling/static/media/sjfExample15.f301e0ca971d1d3211d5.png",
     "index.html": "/CpuScheduling/index.html",
     "main.073c9b0a.css.map": "/CpuScheduling/static/css/main.073c9b0a.css.map",
-    "main.ce736081.js.map": "/CpuScheduling/static/js/main.ce736081.js.map"
+    "main.a5e33f5f.js.map": "/CpuScheduling/static/js/main.a5e33f5f.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.ce736081.js"
+    "static/js/main.a5e33f5f.js"
   ]
 }
