@@ -43,7 +43,7 @@ const FCFS = () => {
           </Heading>
         </Box>
         <Box w="full" mt="30px">
-          <Link to="/">
+          <Link to="/Home">
             <Button
               colorScheme="purple"
               size="lg"

@@ -33,7 +33,7 @@ const RR = () => {
           <Heading fontSize="4xl">RR(Round Robin Scheduling)</Heading>
         </Box>
         <Box w="full" mt="30px">
-          <Link to="/">
+          <Link to="/Home">
             <Button
               colorScheme="purple"
               size="lg"

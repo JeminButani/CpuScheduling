@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import { FaLaptopCode } from "react-icons/fa";
 
-
 import sjfExample1 from "../assets/Images/sjfExample1.png";
 import sjfExample2 from "../assets/Images/sjfExample2.png";
 import sjfExample3 from "../assets/Images/sjfExample3.png";
@@ -54,7 +53,7 @@ const SJF = () => {
           <Heading fontSize="4xl">SJF(Shortest-Job-First Scheduling)</Heading>
         </Box>
         <Box w="full" mt="30px">
-          <Link to="/">
+          <Link to="/Home">
             <Button
               colorScheme="purple"
               size="lg"

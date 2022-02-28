@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import { FaLaptopCode } from "react-icons/fa";
 
-
 import ps1 from "../assets/Images/ps1.png";
 import ps2 from "../assets/Images/ps2.png";
 import ps3 from "../assets/Images/ps3.png";
@@ -47,7 +46,7 @@ const PS = () => {
           <Heading fontSize="4xl">PS( Priority Scheduling )</Heading>
         </Box>
         <Box w="full" mt="30px">
-          <Link to="/">
+          <Link to="/Home">
             <Button
               colorScheme="purple"
               size="lg"

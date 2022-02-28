@@ -1,3 +1,5 @@
+import React from "react";
+
 import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
@@ -10,20 +12,29 @@ import FCFSS from "./components/fcfsSimulate";
 import SJFS from "./components/sjfSimulate";
 import RRS from "./components/rrSimulate";
 import PSS from "./components/psSimulate";
+import AboutLa from "./components/AboutLa";
 
 import { useMediaQuery } from "@chakra-ui/react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
-function App() {
+const App = () => {
   const [isLargerThan1280] = useMediaQuery("(min-width: 1280px)");
 
   return (
     <>
       <BrowserRouter>
-        <Navbar />
+        {/* <Navbar /> */}
+        {isLargerThan1280 ? (
+          <Navbar Headsize="xl" iconSize={32} />
+        ) : (
+          <Navbar Headsize="md" iconSize={20} />
+        )}
+
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/CpuScheduling" index component={Home} />
+          <Route exact path="/Home" index component={Home} />
+          <Route exact path="/about" component={AboutLa} />
           <Route exact path="/fcfs" component={FCFS} />
           <Route exact path="/sjf" component={SJF} />
           <Route exact path="/rr" component={RR} />
@@ -33,11 +44,12 @@ function App() {
           <Route exact path="/rr/rrSimulate" component={RRS} />
           <Route exact path="/ps/psSimulate" component={PSS} />
         </Switch>
-        {isLargerThan1280 ? <Footer height="15%" /> : <Footer height="65%" />}
+
+        {isLargerThan1280 ? <Footer height="45%" /> : <Footer height="75%" />}
         {/* <Footer /> */}
       </BrowserRouter>
     </>
   );
-}
+};
 
 export default App;
