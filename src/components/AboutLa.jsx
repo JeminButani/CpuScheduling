@@ -36,7 +36,7 @@ const AboutLa = () => {
             <Heading fontSize="6xl">About</Heading>
           </Box>
           <Box w="full" mt="30px">
-            <Link to="/">
+            <Link to="/Home">
               <Button
                 colorScheme="purple"
                 size="lg"
@@ -105,7 +105,7 @@ const AboutLa = () => {
             <Heading fontSize="6xl">About</Heading>
           </Box>
           <Box w="full" mt="30px">
-            <Link to="/">
+            <Link to="/Home">
               <Button
                 colorScheme="purple"
                 size="lg"
