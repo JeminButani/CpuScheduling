@@ -35,7 +35,12 @@ import sjfExample27 from "../assets/Images/sjfExample27.png";
 import sjfExample28 from "../assets/Images/sjfExample28.png";
 import sjfExample29 from "../assets/Images/sjfExample29.png";
 
+import { useMediaQuery } from "@chakra-ui/react";
+import Footer from "./Footer";
+
 const SJF = () => {
+  const [isLargerThan1280] = useMediaQuery("(min-width: 1280px)");
+
   return (
     <div>
       <Box marginTop="20px" ml="10%" mr="10%">
@@ -501,6 +506,7 @@ const SJF = () => {
           </Text>
         </Box>
       </Box>
+      {isLargerThan1280 ? <Footer height="10%" /> : <Footer height="10%" />}
     </div>
   );
 };

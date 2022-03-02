@@ -15,8 +15,8 @@ import PSS from "./components/psSimulate";
 import AboutLa from "./components/AboutLa";
 
 import { useMediaQuery } from "@chakra-ui/react";
+// import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
 
 const App = () => {
   const [isLargerThan1280] = useMediaQuery("(min-width: 1280px)");
@@ -45,7 +45,7 @@ const App = () => {
           <Route exact path="/ps/psSimulate" component={PSS} />
         </Switch>
 
-        {isLargerThan1280 ? <Footer height="45%" /> : <Footer height="75%" />}
+        {/* {isLargerThan1280 ? <Footer height="45%" /> : <Footer height="75%" />} */}
         {/* <Footer /> */}
       </BrowserRouter>
     </>

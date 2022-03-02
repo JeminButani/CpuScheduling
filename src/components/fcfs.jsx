@@ -23,7 +23,12 @@ import fcfsExample15 from "../assets/Images/fcfsExample15.png";
 import fcfsExample16 from "../assets/Images/fcfsExample16.png";
 import fcfsExample17 from "../assets/Images/fcfsExample17.png";
 
+import { useMediaQuery } from "@chakra-ui/react";
+import Footer from "./Footer";
+
 const FCFS = () => {
+  const [isLargerThan1280] = useMediaQuery("(min-width: 1280px)");
+
   return (
     <div>
       <Box marginTop="20px" ml="10%" mr="10%">
@@ -326,6 +331,7 @@ const FCFS = () => {
           </Text>
         </Box>
       </Box>
+      {isLargerThan1280 ? <Footer height="10%" /> : <Footer height="10%" />}
     </div>
   );
 };

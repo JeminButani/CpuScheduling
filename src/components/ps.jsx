@@ -28,7 +28,12 @@ import ps20 from "../assets/Images/ps20.png";
 import ps21 from "../assets/Images/ps21.png";
 import ps22 from "../assets/Images/ps22.png";
 
+import { useMediaQuery } from "@chakra-ui/react";
+import Footer from "./Footer";
+
 const PS = () => {
+  const [isLargerThan1280] = useMediaQuery("(min-width: 1280px)");
+
   return (
     <div>
       <Box marginTop="20px" ml="10%" mr="10%">
@@ -299,6 +304,7 @@ const PS = () => {
           </Text>
         </Box>
       </Box>
+      {isLargerThan1280 ? <Footer height="10%" /> : <Footer height="10%" />}
     </div>
   );
 };

@@ -5,6 +5,7 @@ import HomeImg2 from "../assets/Images/2.svg";
 import HomeImg3 from "../assets/Images/3.svg";
 import Jemin from "../assets/Images/Jemin2.png";
 import Jemil from "../assets/Images/jemil.png";
+import Dhruvit from "../assets/Images/Dhruvit.png";
 import { LinkBox, LinkOverlay } from "@chakra-ui/react";
 import {
   Button,
@@ -421,6 +422,94 @@ const HomeInfoLa = () => {
                 <LinkBox as="article" maxW="sm" p="5">
                   <LinkOverlay
                     href="https://www.facebook.com/jass.dharia/"
+                    isExternal
+                  >
+                    <Button colorScheme="facebook" leftIcon={<FaFacebook />}>
+                      Facebook
+                    </Button>
+                  </LinkOverlay>
+                </LinkBox>
+              </HStack>
+            </VStack>
+          </HStack>
+        </VStack>
+
+        {/* Dhruvit  */}
+        <VStack>
+          <HStack mt="10%" spacing={6}>
+            <Image
+              src={Dhruvit}
+              alt="Dhruvit img"
+              mt="10px"
+              width="40%"
+              borderRadius="10%"
+            />
+            <Spacer />
+
+            <VStack spacing={8}>
+              <Heading
+                fontSize="5xl"
+                color="#08c"
+                bgGradient={[
+                  "linear(to-b, orange.100, purple.300)",
+                  "linear(to-t, blue.200, teal.500)",
+                  "linear(to-tr, teal.300, pink.400)",
+                ]}
+                bgClip="text"
+              >
+                Dhruvit Patel{" "}
+                <Tag size="lg" colorScheme="blue" borderRadius="full">
+                  Team Member
+                </Tag>
+                <Text mt={4} fontSize="3xl">
+                  Computer Engineering, PDEU. <br />
+                  20BCP096
+                </Text>
+              </Heading>
+
+              <Text mt={4} fontSize="4xl" color="cyan">
+                "Programmer"
+                <br />
+              </Text>
+              <HStack spacing={4}>
+                {["HTML", "CSS", "JavaScript", "Java"].map((size) => (
+                  <Tag size="lg" key={size} variant="subtle" colorScheme="blue">
+                    {size}
+                  </Tag>
+                ))}
+              </HStack>
+              <HStack spacing={4}>
+                {["Python", "ReactJS", "C", "C++"].map((size) => (
+                  <Tag size="lg" key={size} variant="subtle" colorScheme="blue">
+                    {size}
+                  </Tag>
+                ))}
+              </HStack>
+
+              <HStack>
+                <LinkBox as="article" maxW="sm" p="5">
+                  <LinkOverlay
+                    href="https://www.linkedin.com/in/dhruvit-patel-1615b4216"
+                    isExternal
+                  >
+                    <Button colorScheme="linkedin" leftIcon={<FaLinkedinIn />}>
+                      LinkedIn
+                    </Button>
+                  </LinkOverlay>
+                </LinkBox>
+                <LinkBox as="article" maxW="sm" p="5">
+                  <LinkOverlay
+                    href="https://www.instagram.com/mr_dhr_007/"
+                    isExternal
+                  >
+                    <Button colorScheme="pink" leftIcon={<FaInstagram />}>
+                      Instagram
+                    </Button>
+                  </LinkOverlay>
+                </LinkBox>
+                <LinkBox as="article" maxW="sm" p="5">
+                  <LinkOverlay
+                    href="https://www.facebook.com/dhruvit.patel.357284"
                     isExternal
                   >
                     <Button colorScheme="facebook" leftIcon={<FaFacebook />}>

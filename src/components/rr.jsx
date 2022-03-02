@@ -15,7 +15,12 @@ import rr7 from "../assets/Images/rr7.png";
 import rr8 from "../assets/Images/rr8.png";
 import rr9 from "../assets/Images/rr9.png";
 
+import { useMediaQuery } from "@chakra-ui/react";
+import Footer from "./Footer";
+
 const RR = () => {
+  const [isLargerThan1280] = useMediaQuery("(min-width: 1280px)");
+
   return (
     <div>
       <Box marginTop="20px" ml="10%" mr="10%">
@@ -207,6 +212,7 @@ const RR = () => {
           <Image src={rr9} alt="Example1 img" mt="10px" width="80%" ml="10%" />
         </Box>
       </Box>
+      {isLargerThan1280 ? <Footer height="10%" /> : <Footer height="10%" />}
     </div>
   );
 };
