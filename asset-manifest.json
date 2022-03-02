@@ -1,7 +1,8 @@
 {
   "files": {
     "main.css": "/CpuScheduling/static/css/main.073c9b0a.css",
-    "main.js": "/CpuScheduling/static/js/main.a31ae9d5.js",
+    "main.js": "/CpuScheduling/static/js/main.b1afbcf0.js",
+    "static/media/jemil.png": "/CpuScheduling/static/media/jemil.b63f6509866b5f1a5ff6.png",
     "static/media/ps19.png": "/CpuScheduling/static/media/ps19.a334696191b06d770d40.png",
     "static/media/ps18.png": "/CpuScheduling/static/media/ps18.5579c7ef66be312ebe6c.png",
     "static/media/ps10.png": "/CpuScheduling/static/media/ps10.9a9db4549f86de8d1065.png",
@@ -17,6 +18,7 @@
     "static/media/ps16.png": "/CpuScheduling/static/media/ps16.0f1258cdf7027bb589bb.png",
     "static/media/ps4.png": "/CpuScheduling/static/media/ps4.d80bfe1c55ccd7771ff3.png",
     "static/media/ps22.png": "/CpuScheduling/static/media/ps22.bddea9212da7e34d39b7.png",
+    "static/media/Dhruvit.png": "/CpuScheduling/static/media/Dhruvit.cd88d219581134bd199d.png",
     "static/media/Jemin2.png": "/CpuScheduling/static/media/Jemin2.d0beaf6a41c0fbf24dc2.png",
     "static/media/rr8.png": "/CpuScheduling/static/media/rr8.e9827e278ab7c77adca7.png",
     "static/media/rr7.png": "/CpuScheduling/static/media/rr7.0fee25b393420d0dbc79.png",
@@ -35,7 +37,6 @@
     "static/media/sjfExample21.png": "/CpuScheduling/static/media/sjfExample21.c8bf46ab058a23cd8a3e.png",
     "static/media/sjfExample18.png": "/CpuScheduling/static/media/sjfExample18.2a544f588332aa4a1353.png",
     "static/media/sjfExample5.png": "/CpuScheduling/static/media/sjfExample5.348a13c5f165defe6e51.png",
-    "static/media/jemil.png": "/CpuScheduling/static/media/jemil.f1672c9e61afbfb1158e.png",
     "static/media/sjfExample29.png": "/CpuScheduling/static/media/sjfExample29.d31b77f7c79c9956c3e3.png",
     "static/media/sjfExample28.png": "/CpuScheduling/static/media/sjfExample28.fbac7b7921631ef07034.png",
     "static/media/ps14.png": "/CpuScheduling/static/media/ps14.71d16b9b3a20ce7dee1e.png",
@@ -83,10 +84,10 @@
     "static/media/sjfExample15.png": "/CpuScheduling/static/media/sjfExample15.f301e0ca971d1d3211d5.png",
     "index.html": "/CpuScheduling/index.html",
     "main.073c9b0a.css.map": "/CpuScheduling/static/css/main.073c9b0a.css.map",
-    "main.a31ae9d5.js.map": "/CpuScheduling/static/js/main.a31ae9d5.js.map"
+    "main.b1afbcf0.js.map": "/CpuScheduling/static/js/main.b1afbcf0.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.a31ae9d5.js"
+    "static/js/main.b1afbcf0.js"
   ]
 }
