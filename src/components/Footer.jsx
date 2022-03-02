@@ -16,7 +16,7 @@ const Footer = ({ height }) => {
 
           <Box p="2">
             <Heading size="lg" color="#08c">
-              All Rights reserved to G3_Team5 PDEU,Ganghinagar.
+              All Rights reserved to G3_Team5 PDEU,Gandhinagar.
             </Heading>
           </Box>
           <Spacer />
