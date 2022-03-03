@@ -393,7 +393,7 @@ const HomeInfoSm = () => {
               </Heading>
 
               <Text mt={4} fontSize="2xl" color="cyan">
-                "Backend Programmer"
+                "Computer Programmer"
                 <br />
               </Text>
 

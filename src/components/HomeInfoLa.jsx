@@ -380,7 +380,7 @@ const HomeInfoLa = () => {
               </Heading>
 
               <Text mt={4} fontSize="4xl" color="cyan">
-                "Backend Programmer"
+                "Computer Programmer"
                 <br />
               </Text>
               <HStack spacing={4}>
