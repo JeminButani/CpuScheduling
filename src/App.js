@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
@@ -8,7 +8,7 @@ import FCFS from "./components/fcfs";
 import SJF from "./components/sjf";
 import PS from "./components/ps";
 import RR from "./components/rr";
-import FCFSS from "./components/fcfsSimulate";
+import FCFSS from "./components/FcfsSimulate";
 import SJFS from "./components/sjfSimulate";
 import RRS from "./components/rrSimulate";
 import PSS from "./components/psSimulate";
@@ -20,6 +20,8 @@ import Navbar from "./components/Navbar";
 
 const App = () => {
   const [isLargerThan1280] = useMediaQuery("(min-width: 1280px)");
+
+ 
 
   return (
     <>
