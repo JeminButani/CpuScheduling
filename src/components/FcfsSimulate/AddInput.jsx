@@ -1,20 +1,6 @@
 import React, { useState } from "react";
-import { useMediaQuery } from "@chakra-ui/react";
-// import {
-//   Box,
-//   Heading,
-//   Button,
-//   SimpleGrid,
-//   Text,
-//   Input,
-//   VStack,
-//   HStack,
-//   Spacer,
-// } from "@chakra-ui/react";
 
 const AddInput = ({ addInput }) => {
-  const [isLargerThan1280] = useMediaQuery("(min-width: 900px)");
-
   const [arrT, setArrT] = useState("");
   const [burT, setBurT] = useState("");
 
@@ -34,7 +20,7 @@ const AddInput = ({ addInput }) => {
         className="text-center"
         style={{ marginBottom: "10px", fontSize: "200%" }}
       >
-        Add Data
+        Add Process Data
       </h3>
       <form onSubmit={submit}>
         <div className="mb-3">
@@ -43,6 +29,8 @@ const AddInput = ({ addInput }) => {
           </label>
           <input
             type="number"
+            min="0"
+            step="1"
             value={arrT}
             onChange={(e) => {
               setArrT(e.target.value);
@@ -57,6 +45,8 @@ const AddInput = ({ addInput }) => {
           </label>
           <input
             type="number"
+            min="1"
+            step="1"
             value={burT}
             onChange={(e) => {
               setBurT(e.target.value);
@@ -65,11 +55,10 @@ const AddInput = ({ addInput }) => {
             id="desc"
           ></input>
         </div>
-        <div class="text-center">
-          <button type="submit" className="btn-sm btn-success  ">
-            Add Vlaue
-          </button>
-        </div>
+
+        <button type="submit" className="btn-sm btn-success  ">
+          Add Vlaue
+        </button>
       </form>
     </div>
   );

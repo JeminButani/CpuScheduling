@@ -12,6 +12,7 @@ import { FaLaptopCode } from "react-icons/fa";
 const FcfsSimulate = () => {
   const [isLargerThan1280] = useMediaQuery("(min-width: 900px)");
 
+  // Utility methods for Data Input
   let input = [];
   if (localStorage.getItem("input") === null) {
     input = [];
@@ -50,6 +51,12 @@ const FcfsSimulate = () => {
     localStorage.setItem("inputs", JSON.stringify(inputs));
   }, [inputs]);
 
+  /*utility function to sort the processes according to arrival time followed by pId.
+  pid= Process id, arr = Arrival time , bur = burst time , a&b = index values.
+  currT = Current Time,comp = completion time, turn = turnAround time, wait = waiting time
+  alloted = cpu allotment time, response = response time
+  total_turn= total turnAround time, total_wait= total waiting time
+  timeLine= process timeline, sequence = sequence of processes*/
   function swap(pid, arr, bur, a, b) {
     let temp2 = pid[a];
     pid[a] = pid[b];
@@ -75,6 +82,12 @@ const FcfsSimulate = () => {
   let timeLine = [],
     sequence = [];
 
+  /* Taking Input as : 
+  Array processes: process id
+  int n: total number of processes
+  Array arr: array of arrival time
+  Array bur: array of burst time
+  */
   function CalculatingValues(processes, n, arr, bur) {
     for (let i = 0; i < n; i++) {
       timeLine.push(currT);
@@ -176,7 +189,11 @@ const FcfsSimulate = () => {
       }
     }
 
-    CalculatingValues(Process_Id, n, Arrival_Time, Burst_Time);
+    if (process_id.length === 0) {
+      alert("Please Input some data");
+    } else {
+      CalculatingValues(Process_Id, n, Arrival_Time, Burst_Time);
+    }
   };
 
   return (
@@ -233,7 +250,7 @@ const FcfsSimulate = () => {
           <Box w="full" mt="30px">
             {/* <p id="output1"></p> */}
 
-            <table class="table-dark table-striped table">
+            <table class="table-dark table-striped  table">
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">Process ID</th>
