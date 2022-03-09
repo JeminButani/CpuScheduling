@@ -1,37 +1,18 @@
 import React, { useState, useEffect } from "react";
-import {
-  Box,
-  Heading,
-  Button,
-  SimpleGrid,
-  Text,
-  Input,
-  VStack,
-  HStack,
-  Spacer,
-} from "@chakra-ui/react";
+import { Box, Heading, Button, Text } from "@chakra-ui/react";
 
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
-} from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "@chakra-ui/react";
 import AddInput from "./FcfsSimulate/AddInput";
 import InputValue from "./FcfsSimulate/InputValue";
 
 import { RiArrowGoBackFill } from "react-icons/ri";
+import { FaLaptopCode } from "react-icons/fa";
 
 const FcfsSimulate = () => {
   const [isLargerThan1280] = useMediaQuery("(min-width: 900px)");
 
-  let input;
+  let input = [];
   if (localStorage.getItem("input") === null) {
     input = [];
   } else {
@@ -50,7 +31,7 @@ const FcfsSimulate = () => {
   const addInput = (arrT, burT) => {
     let sno;
     if (inputs.length === 0) {
-      sno = 0;
+      sno = 1;
     } else {
       sno = inputs[inputs.length - 1].sno + 1;
     }
@@ -83,96 +64,119 @@ const FcfsSimulate = () => {
     bur[b] = temp1;
   }
 
+  let currT = 0;
+  let comp = [],
+    turn = [],
+    wait = [],
+    alloted = [],
+    response = [];
+  let total_turn = 0,
+    total_wait = 0;
+  let timeLine = [],
+    sequence = [];
+
   function CalculatingValues(processes, n, arr, bur) {
-    let currT = 0;
-    let comp = new Array(n),
-      turn = new Array(n),
-      wait = new Array(n),
-      alloted = new Array(n);
-    let total_turn = 0,
-      total_wait = 0;
-    let timeLine = [];
     for (let i = 0; i < n; i++) {
       timeLine.push(currT);
 
-      if (i == 0) {
+      if (i === 0) {
         //#Condition for first process
         if (arr[i] > 0) {
           //#If the arrival of first is greater than 0, then its completion will be arrival + Burst
           currT += bur[i] + arr[i];
           timeLine.push(arr[i]);
+          sequence.push("NA");
         } else {
-          currT += bur[i]; //#Else completion will be the burst time
+          currT += bur[i];
+          // sequence.push(processes[i]) //#Else completion will be the burst time
         }
-        alloted[i] = arr[i]; //#CPU will be alloted to process 1 at arrival of 1st process
+        alloted.push(arr[i]); //#CPU will be alloted to process 1 at arrival of 1st process
+        // sequence.push(processes[i])
       } else {
         if (arr[i] > comp[i - 1]) {
           //#if the arrival of current process is greater than the completion of previous process
           currT += bur[i] + arr[i] - comp[i - 1]; //#then its completion will be the addition of the gap and its burst time.
-          alloted[i] = arr[i]; //#CPU allocation will be arrival time of the process
+          alloted.push(arr[i]); //#CPU allocation will be arrival time of the process
           timeLine.push(arr[i]);
+          sequence.push("NA");
         } else {
           //#if the arrival of current process is less than or equal to the completion of previous process
           currT += bur[i]; //#then the completion will current time + Burst time.
-          alloted[i] = comp[i - 1]; //#CPU allocation will the completion of previous process
+          alloted.push(comp[i - 1]); //#CPU allocation will the completion of previous process
         }
       }
+      sequence.push(processes[i]);
 
-      turn[i] = currT - arr[i]; //# Turn arround will be current time - its arrival time.
+      turn.push(currT - arr[i]); //# Turn arround will be current time - its arrival time.
       total_turn += turn[i]; //# adding turnAround of each process for the average calculation.
 
-      wait[i] = turn[i] - bur[i]; // # Waiting time be turnAround - Burst Time.
+      wait.push(turn[i] - bur[i]); // # Waiting time be turnAround - Burst Time.
       total_wait += wait[i]; //# adding waiting of each process for the average calculation.
 
-      comp[i] = currT;
+      comp.push(currT);
+      response.push(alloted[i] - arr[i]);
     }
     timeLine.push(currT);
 
     for (let i = 0; i < n; i++) {
-      document.getElementById("o1").innerHTML +=
-        "Process ID: " + processes[i] + "<br>";
-      document.getElementById("o2").innerHTML +=
-        "Arrival Time    : " + arr[i] + "<br>";
-      document.getElementById("o3").innerHTML +=
-        "Burst Time    : " + bur[i] + "<br>";
-      document.getElementById("o4").innerHTML +=
-        "Completion Time    : " + comp[i] + "<br>";
-      document.getElementById("o5").innerHTML +=
-        "TurnAround Time    : " + turn[i] + "<br>";
-      document.getElementById("o6").innerHTML +=
-        "Waiting Time    : " + wait[i] + "<br>";
+      document.getElementById("o1").innerHTML += processes[i] + "<br>";
+      document.getElementById("o2").innerHTML += arr[i] + "<br>";
+      document.getElementById("o3").innerHTML += bur[i] + "<br>";
+      document.getElementById("o4").innerHTML += comp[i] + "<br>";
+      document.getElementById("o5").innerHTML += alloted[i] + "<br>";
+      document.getElementById("o6").innerHTML += response[i] + "<br>";
+      document.getElementById("o7").innerHTML += turn[i] + "<br>";
+      document.getElementById("o8").innerHTML += wait[i] + "<br>";
     }
-    let l = timeLine.length;
-    document.getElementById("o7").innerHTML += "TimeLine    : ";
+    let l = timeLine.length,
+      s_l = sequence.length;
+    document.getElementById("o9").innerHTML += "Sequence    : ";
+    for (let i = 0; i < s_l; i++) {
+      document.getElementById("o9").innerHTML += sequence[i] + " ";
+    } // to be included in gantt chart blocks
+    document.getElementById("10").innerHTML += "TimeLine    : ";
     for (let i = 0; i < l; i++) {
-      document.getElementById("o7").innerHTML += timeLine[i] + " ";
-    }
+      document.getElementById("10").innerHTML += timeLine[i] + " ";
+    } // to be displayed below the gantt chart as labels.
     let s = Math.round((total_wait / n) * 100) / 100;
     let t = Math.round((total_turn / n) * 100) / 100;
-    document.getElementById("o9").innerHTML =
+    document.getElementById("11").innerHTML =
       "Average waiting time = " + s + " sec.";
 
-    document.getElementById("10").innerHTML =
+    document.getElementById("12").innerHTML =
       "Average turn around time = " + t + " sec.";
-  }
+  } //calculatingValues ends here.
 
-  const fcfs = () => {
-    let process_id = [1, 2, 3]; // Ids assigned by the program itself
+  let Process_Id = [];
+  inputs.map((input) => {
+    return Process_Id.push(parseInt(input.sno));
+  });
+  let Arrival_Time = [];
+  inputs.map((input) => {
+    return Arrival_Time.push(parseInt(input.arrT));
+  });
+  let Burst_Time = [];
+  inputs.map((input) => {
+    return Burst_Time.push(parseInt(input.burT));
+  });
+
+  const fcfs = (input) => {
+    let process_id = Process_Id; // Ids assigned by the program itself
     let n = process_id.length;
 
     //Input from the user and store values in array given below for arrival_time and burst_time.
-    let arrival_time = [44, 7, 11];
-    let burst_time = [1, 28, 12];
+    // let arrival_time = Arrival_Time;
+    // let burst_time = Burst_Time;
 
     for (let i = 0; i < n; i++) {
       for (let j = i + 1; j < n; j++) {
-        if (arrival_time[j] < arrival_time[i]) {
-          swap(process_id, arrival_time, burst_time, i, j);
+        if (Arrival_Time[j] < Arrival_Time[i]) {
+          swap(Process_Id, Arrival_Time, Burst_Time, i, j);
         }
       }
     }
 
-    CalculatingValues(process_id, n, arrival_time, burst_time);
+    CalculatingValues(Process_Id, n, Arrival_Time, Burst_Time);
   };
 
   return (
@@ -210,43 +214,135 @@ const FcfsSimulate = () => {
 
         <AddInput addInput={addInput} />
         <InputValue inputs={inputs} onDelete={onDelete} />
+        <Button
+          mt="4%"
+          colorScheme="purple"
+          size="lg"
+          borderRadius="3xl"
+          fontSize="4xl"
+          padding="20px"
+          variant="solid"
+          // cursor={pointer}
+          onClick={() => fcfs()}
+        >
+          <FaLaptopCode />
+          &nbsp;Simulate
+        </Button>
 
         {isLargerThan1280 ? (
-          <SimpleGrid columns={2} spacing={10} mb="5%">
-            <Box w="full" mt="30px">
-              {/* <p id="output1"></p> */}
-              <VStack spacing={4}>
-                <Text id="o1" fontSize="2xl" mt="5%" w="100%"></Text>
-                <Text id="o2" fontSize="2xl" mt="5%" w="100%"></Text>
-                <Text id="o3" fontSize="2xl" mt="5%" w="100%"></Text>
-                <Text id="o4" fontSize="2xl" mt="5%" w="100%"></Text>
-                <Text id="o5" fontSize="2xl" mt="5%" w="100%"></Text>
-                <Text id="o6" fontSize="2xl" mt="5%" w="100%"></Text>
-                <Text id="o7" fontSize="2xl" mt="5%" w="100%"></Text>
-                {/* <Text id="o8" fontSize="2xl" mt="5%" w="100%"></Text> */}
-                <Text id="o9" fontSize="2xl" mt="5%" w="100%"></Text>
-                <Text id="10" fontSize="2xl" mt="5%" w="100%"></Text>
-              </VStack>
-            </Box>
-          </SimpleGrid>
+          <Box w="full" mt="30px">
+            {/* <p id="output1"></p> */}
+
+            <table class="table-dark table-striped table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Process ID</th>
+                  <th scope="col">Arrival Time</th>
+                  <th scope="col">Burst Time</th>
+                  <th scope="col">Completion Time</th>
+                  <th scope="col">Allotment Time</th>
+                  <th scope="col">Response Time</th>
+                  <th scope="col">TurnAround Time</th>
+                  <th scope="col">Waiting Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <Text id="o1" fontSize="2xl" mt="5%" w="100%"></Text>
+                  </td>
+                  <td>
+                    <Text id="o2" fontSize="2xl" mt="5%" w="100%"></Text>
+                  </td>
+                  <td>
+                    <Text id="o3" fontSize="2xl" mt="5%" w="100%"></Text>
+                  </td>
+                  <td>
+                    <Text id="o4" fontSize="2xl" mt="5%" w="100%"></Text>
+                  </td>
+                  <td>
+                    <Text id="o5" fontSize="2xl" mt="5%" w="100%"></Text>
+                  </td>
+                  <td>
+                    <Text id="o6" fontSize="2xl" mt="5%" w="100%"></Text>
+                  </td>
+                  <td>
+                    <Text id="o7" fontSize="2xl" mt="5%" w="100%"></Text>
+                  </td>
+                  <td>
+                    <Text id="o8" fontSize="2xl" mt="5%" w="100%"></Text>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <Text id="o9" fontSize="2xl" mt="5%" w="100%"></Text>
+            <Text id="10" fontSize="2xl" mt="5%" w="100%"></Text>
+            <Text id="11" fontSize="2xl" mt="5%" w="100%"></Text>
+            <Text id="12" fontSize="2xl" mt="5%" w="100%" mb="5%"></Text>
+          </Box>
         ) : (
-          <SimpleGrid columns={1} spacing={10} mb="5%">
-            <Box w="full" mt="30px">
-              {/* <p id="output1"></p> */}
-              <VStack spacing={4}>
-                <Text id="o1" fontSize="2xl" mt="5%" w="100%"></Text>
-                <Text id="o2" fontSize="2xl" mt="5%" w="100%"></Text>
-                <Text id="o3" fontSize="2xl" mt="5%" w="100%"></Text>
-                <Text id="o4" fontSize="2xl" mt="5%" w="100%"></Text>
-                <Text id="o5" fontSize="2xl" mt="5%" w="100%"></Text>
-                <Text id="o6" fontSize="2xl" mt="5%" w="100%"></Text>
-                <Text id="o7" fontSize="2xl" mt="5%" w="100%"></Text>
-                {/* <Text id="o8" fontSize="2xl" mt="5%" w="100%"></Text> */}
-                <Text id="o9" fontSize="2xl" mt="5%" w="100%"></Text>
-                <Text id="10" fontSize="2xl" mt="5%" w="100%"></Text>
-              </VStack>
-            </Box>
-          </SimpleGrid>
+          <Box w="full" mt="30px">
+            {/* <p id="output1"></p> */}
+
+            <table class="table-dark table-striped table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Process ID</th>
+                  <th scope="col">Arrival Time</th>
+                  <th scope="col">Burst Time</th>
+                  <th scope="col">Completion Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <Text id="o1" fontSize="2xl" mt="5%" w="100%"></Text>
+                  </td>
+                  <td>
+                    <Text id="o2" fontSize="2xl" mt="5%" w="100%"></Text>
+                  </td>
+                  <td>
+                    <Text id="o3" fontSize="2xl" mt="5%" w="100%"></Text>
+                  </td>
+                  <td>
+                    <Text id="o4" fontSize="2xl" mt="5%" w="100%"></Text>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table-dark table-striped table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Allotment Time</th>
+                  <th scope="col">Response Time</th>
+                  <th scope="col">TurnAround Time</th>
+                  <th scope="col">Waiting Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <Text id="o5" fontSize="2xl" mt="5%" w="100%"></Text>
+                  </td>
+                  <td>
+                    <Text id="o6" fontSize="2xl" mt="5%" w="100%"></Text>
+                  </td>
+                  <td>
+                    <Text id="o7" fontSize="2xl" mt="5%" w="100%"></Text>
+                  </td>
+                  <td>
+                    <Text id="o8" fontSize="2xl" mt="5%" w="100%"></Text>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <Text id="o9" fontSize="2xl" mt="5%" w="100%"></Text>
+            <Text id="10" fontSize="2xl" mt="5%" w="100%"></Text>
+            <Text id="11" fontSize="2xl" mt="5%" w="100%"></Text>
+            <Text id="12" fontSize="2xl" mt="5%" w="100%" mb="5%"></Text>
+          </Box>
         )}
       </Box>
     </div>

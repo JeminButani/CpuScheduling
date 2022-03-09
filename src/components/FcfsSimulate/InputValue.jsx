@@ -8,7 +8,7 @@ const Input = ({ inputs, onDelete }) => {
         className="mb-20 text-center"
         style={{ marginBottom: "10px", fontSize: "200%" }}
       >
-        FCFS Simulate input Table
+        FCFS Simulate input
       </h3>
 
       {inputs.length === 0

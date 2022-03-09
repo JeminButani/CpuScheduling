@@ -65,9 +65,11 @@ const AddInput = ({ addInput }) => {
             id="desc"
           ></input>
         </div>
-        <button type="submit" className="btn-sm btn-success">
-          Add Vlaue
-        </button>
+        <div class="text-center">
+          <button type="submit" className="btn-sm btn-success  ">
+            Add Vlaue
+          </button>
+        </div>
       </form>
     </div>
   );
