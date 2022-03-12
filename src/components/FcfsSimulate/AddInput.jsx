@@ -24,7 +24,11 @@ const AddInput = ({ addInput }) => {
       </h3>
       <form onSubmit={submit}>
         <div className="mb-3">
-          <label htmlFor="Arrival Time" className="form-label">
+          <label
+            htmlFor="Arrival Time"
+            className="form-label"
+            style={{ fontSize: "150%" }}
+          >
             Arrival Time
           </label>
           <input
@@ -40,7 +44,11 @@ const AddInput = ({ addInput }) => {
           ></input>
         </div>
         <div className="mb-3">
-          <label htmlFor="Burst Time" className="form-label">
+          <label
+            htmlFor="Burst Time"
+            className="form-label"
+            style={{ fontSize: "150%" }}
+          >
             Burst Time
           </label>
           <input
@@ -56,10 +64,21 @@ const AddInput = ({ addInput }) => {
           ></input>
         </div>
 
-        <button type="submit" className="btn-sm btn-success  ">
-          Add Vlaue
+        <button
+          type="submit"
+          className="btn-sm btn-success "
+          style={{ fontSize: "150%" }}
+        >
+          Add Value
         </button>
       </form>
+      <button
+        style={{ fontSize: "150%", marginTop: "2%" }}
+        className="btn-sm btn-danger"
+        onClick={() => window.location.reload(true)}
+      >
+        Reset
+      </button>
     </div>
   );
 };

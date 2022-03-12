@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Box, Heading, Button, Text } from "@chakra-ui/react";
-
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "@chakra-ui/react";
 import AddInput from "./FcfsSimulate/AddInput";
 import InputValue from "./FcfsSimulate/InputValue";
-
 import { RiArrowGoBackFill } from "react-icons/ri";
 import { FaLaptopCode } from "react-icons/fa";
 
+//main function for rendering the page
 const FcfsSimulate = () => {
+  //for responsiveness
   const [isLargerThan1280] = useMediaQuery("(min-width: 900px)");
-
   // Utility methods for Data Input
   let input = [];
   if (localStorage.getItem("input") === null) {
@@ -19,7 +18,6 @@ const FcfsSimulate = () => {
   } else {
     input = JSON.parse(localStorage.getItem("input"));
   }
-
   const onDelete = (todo) => {
     console.log("I am ondelete", todo);
     setInputs(
@@ -41,16 +39,15 @@ const FcfsSimulate = () => {
       arrT: arrT,
       burT: burT,
     };
-
     setInputs([...inputs, myInput]);
   };
-
   const [inputs, setInputs] = useState(input);
-
   useEffect(() => {
     localStorage.setItem("inputs", JSON.stringify(inputs));
   }, [inputs]);
 
+  //time complexity: O(n^2) {Sorting.}
+  //Space complexity: O(n) {Arrays for displaying and storing values}
   /*utility function to sort the processes according to arrival time followed by pId.
   pid= Process id, arr = Arrival time , bur = burst time , a&b = index values.
   currT = Current Time,comp = completion time, turn = turnAround time, wait = waiting time
@@ -61,16 +58,13 @@ const FcfsSimulate = () => {
     let temp2 = pid[a];
     pid[a] = pid[b];
     pid[b] = temp2;
-
     let temp = arr[a];
     arr[a] = arr[b];
     arr[b] = temp;
-
     let temp1 = bur[a];
     bur[a] = bur[b];
     bur[b] = temp1;
   }
-
   let currT = 0;
   let comp = [],
     turn = [],
@@ -81,28 +75,24 @@ const FcfsSimulate = () => {
     total_wait = 0;
   let timeLine = [],
     sequence = [];
-
   /* Taking Input as : 
   Array processes: process id
   int n: total number of processes
   Array arr: array of arrival time
   Array bur: array of burst time
+  and passing them as arguments in CalculatingValues function.
   */
   function CalculatingValues(processes, n, arr, bur) {
     for (let i = 0; i < n; i++) {
       timeLine.push(currT);
-
       if (i === 0) {
         //#Condition for first process
         if (arr[i] > 0) {
           //#If the arrival of first is greater than 0, then its completion will be arrival + Burst
           currT += bur[i] + arr[i];
           timeLine.push(arr[i]);
-          sequence.push("NA");
-        } else {
-          currT += bur[i];
-          // sequence.push(processes[i]) //#Else completion will be the burst time
-        }
+          sequence.push("N/A");
+        } else currT += bur[i]; // sequence.push(processes[i]) //#Else completion will be the burst time
         alloted.push(arr[i]); //#CPU will be alloted to process 1 at arrival of 1st process
         // sequence.push(processes[i])
       } else {
@@ -111,7 +101,7 @@ const FcfsSimulate = () => {
           currT += bur[i] + arr[i] - comp[i - 1]; //#then its completion will be the addition of the gap and its burst time.
           alloted.push(arr[i]); //#CPU allocation will be arrival time of the process
           timeLine.push(arr[i]);
-          sequence.push("NA");
+          sequence.push("N/A");
         } else {
           //#if the arrival of current process is less than or equal to the completion of previous process
           currT += bur[i]; //#then the completion will current time + Burst time.
@@ -119,13 +109,10 @@ const FcfsSimulate = () => {
         }
       }
       sequence.push(processes[i]);
-
       turn.push(currT - arr[i]); //# Turn arround will be current time - its arrival time.
       total_turn += turn[i]; //# adding turnAround of each process for the average calculation.
-
       wait.push(turn[i] - bur[i]); // # Waiting time be turnAround - Burst Time.
       total_wait += wait[i]; //# adding waiting of each process for the average calculation.
-
       comp.push(currT);
       response.push(alloted[i] - arr[i]);
     }
@@ -144,22 +131,22 @@ const FcfsSimulate = () => {
     let l = timeLine.length,
       s_l = sequence.length;
     document.getElementById("o9").innerHTML += "Sequence    : ";
-    for (let i = 0; i < s_l; i++) {
+    for (let i = 0; i < s_l; i++)
       document.getElementById("o9").innerHTML += sequence[i] + " ";
-    } // to be included in gantt chart blocks
+    // to be included in gantt chart blocks
     document.getElementById("10").innerHTML += "TimeLine    : ";
-    for (let i = 0; i < l; i++) {
+    for (let i = 0; i < l; i++)
       document.getElementById("10").innerHTML += timeLine[i] + " ";
-    } // to be displayed below the gantt chart as labels.
+    // to be displayed below the gantt chart as labels.
     let s = Math.round((total_wait / n) * 100) / 100;
     let t = Math.round((total_turn / n) * 100) / 100;
     document.getElementById("11").innerHTML =
       "Average waiting time = " + s + " sec.";
-
     document.getElementById("12").innerHTML =
       "Average turn around time = " + t + " sec.";
   } //calculatingValues ends here.
 
+  // Retriving the input values and storing in array
   let Process_Id = [];
   inputs.map((input) => {
     return Process_Id.push(parseInt(input.sno));
@@ -176,24 +163,13 @@ const FcfsSimulate = () => {
   const fcfs = (input) => {
     let process_id = Process_Id; // Ids assigned by the program itself
     let n = process_id.length;
-
-    //Input from the user and store values in array given below for arrival_time and burst_time.
-    // let arrival_time = Arrival_Time;
-    // let burst_time = Burst_Time;
-
-    for (let i = 0; i < n; i++) {
-      for (let j = i + 1; j < n; j++) {
-        if (Arrival_Time[j] < Arrival_Time[i]) {
+    for (let i = 0; i < n; i++)
+      for (let j = i + 1; j < n; j++)
+        if (Arrival_Time[j] < Arrival_Time[i])
           swap(Process_Id, Arrival_Time, Burst_Time, i, j);
-        }
-      }
-    }
 
-    if (process_id.length === 0) {
-      alert("Please Input some data");
-    } else {
-      CalculatingValues(Process_Id, n, Arrival_Time, Burst_Time);
-    }
+    if (process_id.length === 0) alert("Please Input some data");
+    else CalculatingValues(Process_Id, n, Arrival_Time, Burst_Time);
   };
 
   return (
@@ -230,7 +206,9 @@ const FcfsSimulate = () => {
         </Box>
 
         <AddInput addInput={addInput} />
+
         <InputValue inputs={inputs} onDelete={onDelete} />
+
         <Button
           mt="4%"
           colorScheme="purple"
@@ -367,48 +345,3 @@ const FcfsSimulate = () => {
 };
 
 export default FcfsSimulate;
-
-//  <Table
-//             variant="striped"
-//             colorScheme="purple"
-//             mt="5%"
-//             style={{ border: "1px solid #aa80ff", borderRadius: "5px" }}
-//           >
-//             <Thead>
-//               <Tr>
-//                 <Th>Process ID</Th>
-//                 <Th>Arrival Time</Th>
-//                 <Th>Burst Time</Th>
-//                 <Th>Completion Time</Th>
-//                 <Th>TurnAround Time</Th>
-//                 <Th>Waiting Time</Th>
-//               </Tr>
-//             </Thead>
-
-//             <Tbody>
-//               <Tr>
-//                 <Td>2</Td>
-//                 <Td>7</Td>
-//                 <Td>28</Td>
-//                 <Td>35</Td>
-//                 <Td>28</Td>
-//                 <Td>0</Td>
-//               </Tr>
-//               <Tr>
-//                 <Td>3</Td>
-//                 <Td>11</Td>
-//                 <Td>12</Td>
-//                 <Td>47</Td>
-//                 <Td>36</Td>
-//                 <Td>24</Td>
-//               </Tr>
-//               <Tr>
-//                 <Td>1</Td>
-//                 <Td>44</Td>
-//                 <Td>1</Td>
-//                 <Td>48</Td>
-//                 <Td>4</Td>
-//                 <Td>3</Td>
-//               </Tr>
-//             </Tbody>
-// </Table>
