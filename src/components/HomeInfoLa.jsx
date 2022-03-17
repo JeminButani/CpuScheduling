@@ -56,7 +56,7 @@ const HomeInfoLa = () => {
       </HStack>
 
       {/* algorithms options  */}
-      <SimpleGrid columns={2} spacingX="20px" spacingY="20px" mt="10%">
+      <SimpleGrid columns={2} spacingX="20px" spacingY="20px" mt="5%">
         <Box
           p={10}
           width="200px"

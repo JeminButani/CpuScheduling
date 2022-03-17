@@ -141,9 +141,9 @@ const FcfsSimulate = () => {
     let s = Math.round((total_wait / n) * 100) / 100;
     let t = Math.round((total_turn / n) * 100) / 100;
     document.getElementById("11").innerHTML =
-      "Average waiting time = " + s + " sec.";
+      "Average waiting time = " + s + " unit";
     document.getElementById("12").innerHTML =
-      "Average turn around time = " + t + " sec.";
+      "Average turn around time = " + t + " unit";
   } //calculatingValues ends here.
 
   // Retriving the input values and storing in array
@@ -206,6 +206,12 @@ const FcfsSimulate = () => {
         </Box>
 
         <AddInput addInput={addInput} />
+        <h3
+          className="mb-20 text-center"
+          style={{ marginBottom: "10px", fontSize: "200%" }}
+        >
+          FCFS Simulate input
+        </h3>
 
         <InputValue inputs={inputs} onDelete={onDelete} />
 

@@ -9,7 +9,7 @@ import SJF from "./components/sjf";
 import PS from "./components/ps";
 import RR from "./components/rr";
 import FCFSS from "./components/FcfsSimulate";
-import SJFS from "./components/sjfSimulate";
+import SJFS from "./components/SjfSimulate";
 import RRS from "./components/rrSimulate";
 import PSS from "./components/psSimulate";
 import AboutLa from "./components/AboutLa";
@@ -20,8 +20,6 @@ import Navbar from "./components/Navbar";
 
 const App = () => {
   const [isLargerThan1280] = useMediaQuery("(min-width: 1280px)");
-
- 
 
   return (
     <>
