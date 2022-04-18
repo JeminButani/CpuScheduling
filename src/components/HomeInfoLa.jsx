@@ -313,7 +313,7 @@ const HomeInfoLa = () => {
               <HStack>
                 <LinkBox as="article" maxW="sm" p="5">
                   <LinkOverlay
-                    href="https://www.linkedin.com/in/jemin-butani-a834a6205/"
+                    href="https://www.linkedin.com/in/jemin-butani-a87073237/"
                     isExternal
                   >
                     <Button colorScheme="linkedin" leftIcon={<FaLinkedinIn />}>
@@ -323,7 +323,7 @@ const HomeInfoLa = () => {
                 </LinkBox>
                 <LinkBox as="article" maxW="sm" p="5">
                   <LinkOverlay
-                    href="https://www.instagram.com/jeminbutani_2606/"
+                    href="https://www.instagram.com/jamesb_2606/"
                     isExternal
                   >
                     <Button colorScheme="pink" leftIcon={<FaInstagram />}>
