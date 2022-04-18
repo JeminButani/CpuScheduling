@@ -269,7 +269,7 @@ const HomeInfoLa = () => {
                 bgClip="text"
               >
                 Jemin Butani{" "}
-                <Tag size="lg" colorScheme="blue" borderRadius="full">
+                <Tag size="md" colorScheme="blue" borderRadius="full">
                   Team Lead
                 </Tag>
                 <Text mt={4} fontSize="3xl">
@@ -370,7 +370,7 @@ const HomeInfoLa = () => {
                 bgClip="text"
               >
                 Jemil Dharia{" "}
-                <Tag size="lg" colorScheme="blue" borderRadius="full">
+                <Tag size="md" colorScheme="blue" borderRadius="full">
                   Team Member
                 </Tag>
                 <Text mt={4} fontSize="3xl">
@@ -458,7 +458,7 @@ const HomeInfoLa = () => {
                 bgClip="text"
               >
                 Dhruvit Patel{" "}
-                <Tag size="lg" colorScheme="blue" borderRadius="full">
+                <Tag size="md" colorScheme="blue" borderRadius="full">
                   Team Member
                 </Tag>
                 <Text mt={4} fontSize="3xl">

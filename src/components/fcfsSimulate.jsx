@@ -233,7 +233,6 @@ const FcfsSimulate = () => {
         {isLargerThan1280 ? (
           <Box w="full" mt="30px">
             {/* <p id="output1"></p> */}
-
             <table class="table-dark table-striped  table">
               <thead class="thead-dark">
                 <tr>
@@ -276,7 +275,6 @@ const FcfsSimulate = () => {
                 </tr>
               </tbody>
             </table>
-
             <Text id="o9" fontSize="2xl" mt="5%" w="100%"></Text>
             <Text id="10" fontSize="2xl" mt="5%" w="100%"></Text>
             <Text id="11" fontSize="2xl" mt="5%" w="100%"></Text>

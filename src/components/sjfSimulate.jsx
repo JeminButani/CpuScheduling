@@ -194,6 +194,7 @@ const SjfSimulate = () => {
     document.getElementById("o9").innerHTML += "Sequence    : ";
     for (let i = 0; i < s_l; i++)
       document.getElementById("o9").innerHTML += sequence[i] + " ";
+
     // to be included in gantt chart blocks
     document.getElementById("10").innerHTML += "TimeLine    : ";
     for (let i = 0; i < l; i++)
@@ -343,7 +344,6 @@ const SjfSimulate = () => {
                 </tr>
               </tbody>
             </table>
-
             <Text id="o9" fontSize="2xl" mt="5%" w="100%"></Text>
             <Text id="10" fontSize="2xl" mt="5%" w="100%"></Text>
             <Text id="11" fontSize="2xl" mt="5%" w="100%"></Text>
