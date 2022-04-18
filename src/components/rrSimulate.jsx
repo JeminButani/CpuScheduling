@@ -142,11 +142,10 @@ const RrSimulate = () => {
       }
     }
     let no_of_times = 0;
-    if (m % q == 0) no_of_times = parseInt(m / q);
+    if (m % q === 0) no_of_times = parseInt(m / q);
     else no_of_times = parseInt(m / q) + 1;
 
     let index = [],
-      sum = 0,
       length = 0;
     let currT = arr[0];
     timeLine.push(currT);
@@ -158,7 +157,7 @@ const RrSimulate = () => {
           timeLine.push(currT);
           burst_copy[i] -= q;
           sequence.push(processes[i]);
-        } else if (burst_copy[i] != 0 && burst_copy[i] < q) {
+        } else if (burst_copy[i] !== 0 && burst_copy[i] < q) {
           currT += burst_copy[i];
           timeLine.push(currT);
           burst_copy[i] = 0;
@@ -166,8 +165,8 @@ const RrSimulate = () => {
         }
 
         if (
-          (burst_copy[i] == 0 && length == 0) ||
-          (burst_copy[i] == 0 && comp[length - 1] != currT)
+          (burst_copy[i] === 0 && length === 0) ||
+          (burst_copy[i] === 0 && comp[length - 1] !== currT)
         ) {
           index.push(i);
           comp.push(currT);
@@ -305,7 +304,7 @@ const RrSimulate = () => {
         if (Arrival_Time[j] < Arrival_Time[i])
           swap(process_id, Arrival_Time, Burst_Time, i, j);
         else if (
-          Arrival_Time[j] == Arrival_Time[i] &&
+          Arrival_Time[j] === Arrival_Time[i] &&
           process_id[j] < process_id[i]
         )
           swap(process_id, Arrival_Time, Burst_Time, i, j);
