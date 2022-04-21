@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Heading, Button, Text, Image } from "@chakra-ui/react";
+import { Box, Heading, Button, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "@chakra-ui/react";
 import AddInput from "./rrSimulate/AddInput1";
@@ -73,9 +73,6 @@ const RrSimulate = () => {
     if (qtinput.length === 0) {
       sno = 1;
     }
-    // else if (qtinput.length === 1) {
-    //   alert("This Vlaue can be Entered only once!");
-    // }
     var myInputq = {};
     if (sno === 1) {
       myInputq = {
@@ -141,6 +138,7 @@ const RrSimulate = () => {
         m = bur[i];
       }
     }
+    //maximum number of times the cycle needs to run.
     let no_of_times = 0;
     if (m % q === 0) no_of_times = parseInt(m / q);
     else no_of_times = parseInt(m / q) + 1;
@@ -148,33 +146,52 @@ const RrSimulate = () => {
     let index = [],
       length = 0;
     let currT = arr[0];
+    // if(arr[0]!=0) timeLine.push("N/A")
     timeLine.push(currT);
-
+    //main algorithm:
+    //runs for no_of_times times
+    //time complexity: O(n^2)
     for (let j = 0; j < no_of_times; j++) {
       for (let i = 0; i < n; i++) {
+        if (i !== 0) {
+          if (arr[i] > currT) {
+            currT += arr[i] - currT;
+            timeLine.push("N/A");
+            sequence.push(processes[i]);
+            i--;
+            continue;
+          }
+        }
+
+        //if the burst time is greater than or equal to the quanta entered.
         if (burst_copy[i] >= q) {
           currT += q;
           timeLine.push(currT);
           burst_copy[i] -= q;
           sequence.push(processes[i]);
-        } else if (burst_copy[i] !== 0 && burst_copy[i] < q) {
+        }
+        //if the burst time is less than the quanta entered.
+        else if (burst_copy[i] !== 0 && burst_copy[i] < q) {
           currT += burst_copy[i];
           timeLine.push(currT);
           burst_copy[i] = 0;
           sequence.push(processes[i]);
         }
-
+        //if the burst time becomes zero and the ith precess is not yet included in the comp list.
         if (
           (burst_copy[i] === 0 && length === 0) ||
-          (burst_copy[i] === 0 && comp[length - 1] !== currT)
+          (burst_copy[i] === 0 &&
+            comp[length - 1] !== currT &&
+            !index.includes(i))
         ) {
           index.push(i);
           comp.push(currT);
           length += 1;
+          // console.log(i)
         }
       }
     }
-
+    //arrange the calculated values according to the order of input.
     for (let i = 0; i < n; i++) {
       for (let j = i + 1; j < n; j++) {
         if (index[j] < index[i]) {
@@ -188,7 +205,7 @@ const RrSimulate = () => {
         }
       }
     }
-
+    //calculating the turn and wait columns of the table.
     for (let i = 0; i < n; i++) {
       turn.push(comp[i] - arr[i]);
       total_turn += turn[i];
@@ -203,10 +220,7 @@ const RrSimulate = () => {
             <th scope="col">Process ID</th>
             <th scope="col">Arrival Time</th>
             <th scope="col">Burst Time</th>
-            {/* <th scope="col">Priority</th> */}
             <th scope="col">Completion Time</th>
-            {/* <th scope="col">Allotment Time</th>
-        <th scope="col">Response Time</th> */}
             <th scope="col">TurnAround Time</th>
             <th scope="col">Waiting Time</th>
           </tr>
@@ -225,12 +239,6 @@ const RrSimulate = () => {
             <td>
               <Text id="o4" fontSize="2xl" mt="5%" w="100%"></Text>
             </td>
-            {/* <td>
-          <Text id="o5" fontSize="2xl" mt="5%" w="100%"></Text>
-        </td>
-        <td>
-          <Text id="o6" fontSize="2xl" mt="5%" w="100%"></Text>
-        </td> */}
             <td>
               <Text id="o7" fontSize="2xl" mt="5%" w="100%"></Text>
             </td>
@@ -243,24 +251,24 @@ const RrSimulate = () => {
       document.getElementById("tableHead")
     );
 
+    //Content for the tabular html
     for (let i = 0; i < n; i++) {
       document.getElementById("o1").innerHTML += processes[i] + "<br>";
       document.getElementById("o2").innerHTML += arr[i] + "<br>";
       document.getElementById("o3").innerHTML += bur[i] + "<br>";
-      // document.getElementById("13").innerHTML += prio[i] + "<br>";
       document.getElementById("o4").innerHTML += comp[i] + "<br>";
-      // document.getElementById("o5").innerHTML += alloted[i] + "<br>";
-      // document.getElementById("o6").innerHTML += response[i] + "<br>";
       document.getElementById("o7").innerHTML += turn[i] + "<br>";
       document.getElementById("o8").innerHTML += wait[i] + "<br>";
     }
+    //content for the next calculated values and sequences.
+    document.getElementById("13").innerHTML = "Time Quantum: " + quanta;
     let l = timeLine.length,
       s_l = sequence.length;
-    document.getElementById("o9").innerHTML += "Sequence    : ";
+    document.getElementById("o9").innerHTML = "Sequence    : ";
     for (let i = 0; i < s_l; i++)
       document.getElementById("o9").innerHTML += sequence[i] + " ";
     // to be included in gantt chart blocks
-    document.getElementById("10").innerHTML += "TimeLine    : ";
+    document.getElementById("10").innerHTML = "TimeLine    : ";
     for (let i = 0; i < l; i++)
       document.getElementById("10").innerHTML += timeLine[i] + " ";
     // to be displayed below the gantt chart as labels.
@@ -289,10 +297,6 @@ const RrSimulate = () => {
   qtinput.map((qtinput) => {
     return Quntum_Time.push(parseInt(qtinput.timequantum));
   });
-  // let Priority = [];
-  // inputs.map((input) => {
-  //   return Priority.push(parseInt(input.prio));
-  // });
 
   let quanta = Quntum_Time[0];
   const rr = (input) => {
@@ -339,7 +343,6 @@ const RrSimulate = () => {
               fontSize="4xl"
               padding="20px"
               variant="solid"
-              // cursor={pointer}
             >
               <RiArrowGoBackFill />
               &nbsp;Return
@@ -362,7 +365,6 @@ const RrSimulate = () => {
           fontSize="4xl"
           padding="20px"
           variant="solid"
-          // cursor={pointer}
           onClick={() => rr()}
         >
           <FaLaptopCode />
@@ -371,56 +373,9 @@ const RrSimulate = () => {
 
         {isLargerThan1280 ? (
           <Box w="full" mt="30px">
-            {/* <p id="output1"></p> */}
+            {/* Content to be rendered after the simulation click. */}
             <div id="tableHead"></div>
-
-            {/* <table class="table-dark table-striped  table">
-              <thead class="thead-dark">
-                <tr>
-                  <th scope="col">Process ID</th>
-                  <th scope="col">Arrival Time</th>
-                  <th scope="col">Burst Time</th>
-                  <th scope="col">Priority</th>
-                  <th scope="col">Completion Time</th>
-                  <th scope="col">Allotment Time</th>
-                  <th scope="col">Response Time</th>
-                  <th scope="col">TurnAround Time</th>
-                  <th scope="col">Waiting Time</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <Text id="o1" fontSize="2xl" mt="5%" w="100%"></Text>
-                  </td>
-                  <td>
-                    <Text id="o2" fontSize="2xl" mt="5%" w="100%"></Text>
-                  </td>
-                  <td>
-                    <Text id="o3" fontSize="2xl" mt="5%" w="100%"></Text>
-                  </td>
-                  <td>
-                    <Text id="13" fontSize="2xl" mt="5%" w="100%"></Text>
-                  </td>
-                  <td>
-                    <Text id="o4" fontSize="2xl" mt="5%" w="100%"></Text>
-                  </td>
-                  <td>
-                    <Text id="o5" fontSize="2xl" mt="5%" w="100%"></Text>
-                  </td>
-                  <td>
-                    <Text id="o6" fontSize="2xl" mt="5%" w="100%"></Text>
-                  </td>
-                  <td>
-                    <Text id="o7" fontSize="2xl" mt="5%" w="100%"></Text>
-                  </td>
-                  <td>
-                    <Text id="o8" fontSize="2xl" mt="5%" w="100%"></Text>
-                  </td>
-                </tr>
-              </tbody>
-            </table> */}
-
+            <Text id="13" fontSize="2xl" mt="5%" w="100%"></Text>
             <Text id="o9" fontSize="2xl" mt="5%" w="100%"></Text>
             <Text id="10" fontSize="2xl" mt="5%" w="100%"></Text>
             <Text id="11" fontSize="2xl" mt="5%" w="100%"></Text>
@@ -449,9 +404,7 @@ const RrSimulate = () => {
                   <td>
                     <Text id="o3" fontSize="2xl" mt="5%" w="100%"></Text>
                   </td>
-                  <td>
-                    {/* <Text id="13" fontSize="2xl" mt="5%" w="100%"></Text> */}
-                  </td>
+
                   <td>
                     <Text id="o4" fontSize="2xl" mt="5%" w="100%"></Text>
                   </td>
@@ -489,13 +442,6 @@ const RrSimulate = () => {
             <Text id="10" fontSize="2xl" mt="5%" w="100%"></Text>
             <Text id="11" fontSize="2xl" mt="5%" w="100%"></Text>
             <Text id="12" fontSize="2xl" mt="5%" w="100%" mb="5%"></Text>
-            {/* <Image
-              src={plot}
-              alt="Example1 img"
-              mt="10px"
-              width="80%"
-              ml="10%"
-            /> */}
           </Box>
         )}
       </Box>

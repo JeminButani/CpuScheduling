@@ -26,7 +26,7 @@ const AddInputquant = ({ AddInputquant }) => {
           </label>
           <input
             type="number"
-            min="0"
+            min="1"
             step="1"
             value={timequantum}
             onChange={(e) => {
