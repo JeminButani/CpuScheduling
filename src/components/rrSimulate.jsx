@@ -153,16 +153,6 @@ const RrSimulate = () => {
     //time complexity: O(n^2)
     for (let j = 0; j < no_of_times; j++) {
       for (let i = 0; i < n; i++) {
-        if (i !== 0) {
-          if (arr[i] > currT) {
-            currT += arr[i] - currT;
-            timeLine.push("N/A");
-            sequence.push(processes[i]);
-            i--;
-            continue;
-          }
-        }
-
         //if the burst time is greater than or equal to the quanta entered.
         if (burst_copy[i] >= q) {
           currT += q;
