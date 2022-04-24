@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/CpuScheduling/static/css/main.073c9b0a.css",
-    "main.js": "/CpuScheduling/static/js/main.ca72867e.js",
+    "main.js": "/CpuScheduling/static/js/main.d60fe529.js",
     "static/media/jemil.png": "/CpuScheduling/static/media/jemil.b63f6509866b5f1a5ff6.png",
     "static/media/ps19.png": "/CpuScheduling/static/media/ps19.a334696191b06d770d40.png",
     "static/media/ps18.png": "/CpuScheduling/static/media/ps18.5579c7ef66be312ebe6c.png",
@@ -85,10 +85,10 @@
     "static/media/sjfExample15.png": "/CpuScheduling/static/media/sjfExample15.f301e0ca971d1d3211d5.png",
     "index.html": "/CpuScheduling/index.html",
     "main.073c9b0a.css.map": "/CpuScheduling/static/css/main.073c9b0a.css.map",
-    "main.ca72867e.js.map": "/CpuScheduling/static/js/main.ca72867e.js.map"
+    "main.d60fe529.js.map": "/CpuScheduling/static/js/main.d60fe529.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.ca72867e.js"
+    "static/js/main.d60fe529.js"
   ]
 }
