@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/CpuScheduling/static/css/main.073c9b0a.css",
-    "main.js": "/CpuScheduling/static/js/main.0f7ab8c2.js",
+    "main.js": "/CpuScheduling/static/js/main.ca72867e.js",
     "static/media/jemil.png": "/CpuScheduling/static/media/jemil.b63f6509866b5f1a5ff6.png",
     "static/media/ps19.png": "/CpuScheduling/static/media/ps19.a334696191b06d770d40.png",
     "static/media/ps18.png": "/CpuScheduling/static/media/ps18.5579c7ef66be312ebe6c.png",
@@ -12,6 +12,7 @@
     "static/media/ps15.png": "/CpuScheduling/static/media/ps15.7a31ed38c036bcc7a315.png",
     "static/media/ps5.png": "/CpuScheduling/static/media/ps5.c048b9ad30a73eae8f23.png",
     "static/media/ps13.png": "/CpuScheduling/static/media/ps13.706afe6723ff14c8282b.png",
+    "static/media/shrey.png": "/CpuScheduling/static/media/shrey.d2eab98e7b1667fdb153.png",
     "static/media/ps3.png": "/CpuScheduling/static/media/ps3.c6e2d0190cbc9f5c6888.png",
     "static/media/ps12.png": "/CpuScheduling/static/media/ps12.721678b009466232afe9.png",
     "static/media/ps9.png": "/CpuScheduling/static/media/ps9.99f886b4ec8b8611726a.png",
@@ -84,10 +85,10 @@
     "static/media/sjfExample15.png": "/CpuScheduling/static/media/sjfExample15.f301e0ca971d1d3211d5.png",
     "index.html": "/CpuScheduling/index.html",
     "main.073c9b0a.css.map": "/CpuScheduling/static/css/main.073c9b0a.css.map",
-    "main.0f7ab8c2.js.map": "/CpuScheduling/static/js/main.0f7ab8c2.js.map"
+    "main.ca72867e.js.map": "/CpuScheduling/static/js/main.ca72867e.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.0f7ab8c2.js"
+    "static/js/main.ca72867e.js"
   ]
 }
