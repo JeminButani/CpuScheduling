@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Box, Heading, Button, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { Chart as ChartJS } from "chart.js/auto";
+import { Chart } from "react-chartjs-2";
+
+import { Bar } from "react-chartjs-2";
 import { useMediaQuery } from "@chakra-ui/react";
 import AddInput from "./rrSimulate/AddInput1";
 import InputValue from "./rrSimulate/InputValue1";
@@ -118,7 +122,8 @@ const RrSimulate = () => {
   let total_turn = 0,
     total_wait = 0;
   let timeLine = [],
-    sequence = [];
+    sequence = [],
+    spacing = [];
 
   /* Taking Input as : 
   Array processes: process id
@@ -153,6 +158,16 @@ const RrSimulate = () => {
     //time complexity: O(n^2)
     for (let j = 0; j < no_of_times; j++) {
       for (let i = 0; i < n; i++) {
+        // if(i!=0){
+        //   if(arr[i] > currT){
+        //     currT += arr[i] - currT
+        //     timeLine.push("N/A")
+        //     sequence.push(processes[i])
+        //     i--
+        //     continue;
+        //   }
+        // }
+
         //if the burst time is greater than or equal to the quanta entered.
         if (burst_copy[i] >= q) {
           currT += q;
@@ -202,6 +217,13 @@ const RrSimulate = () => {
       wait.push(turn[i] - bur[i]);
       total_wait += wait[i];
     }
+    let len_s = timeLine.length;
+    for (let i = 0; i < len_s - 1; i++) {
+      let ar = [timeLine[i], timeLine[i + 1]];
+      spacing.push(ar);
+
+      console.log(spacing[i]);
+    }
 
     reactDom.render(
       <table class="table-dark table-striped  table">
@@ -241,6 +263,38 @@ const RrSimulate = () => {
       document.getElementById("tableHead")
     );
 
+    reactDom.render(
+      <Box
+        marginTop="20px"
+        marginBottom="20px"
+        p={7}
+        shadow="2xl"
+        borderWidth="4px"
+        borderColor="blue.200"
+        borderRadius="3xl"
+        w="sm"
+        textAlign="center"
+        backgroundColor={"AppWorkspace"}
+      >
+        <Bar
+          title="Gantt Chart"
+          data={{
+            // Name of the variables on x-axies for each bar
+            labels: sequence,
+            datasets: [
+              {
+                label: "Gantt Chart",
+                indexAxis: "y",
+                barPercentage: 0.4,
+                data: spacing,
+                backgroundColor: ["red", "green"],
+              },
+            ],
+          }}
+        />
+      </Box>,
+      document.getElementById("gantt")
+    );
     //Content for the tabular html
     for (let i = 0; i < n; i++) {
       document.getElementById("o1").innerHTML += processes[i] + "<br>";
@@ -289,23 +343,28 @@ const RrSimulate = () => {
   });
 
   let quanta = Quntum_Time[0];
+  let count = 0;
   const rr = (input) => {
-    let process_id = Process_Id; // Ids assigned by the program itself
+    if (count === 0) {
+      let process_id = Process_Id; // Ids assigned by the program itself
 
-    let n = process_id.length;
-    for (let i = 0; i < n; i++) {
-      for (let j = i + 1; j < n; j++) {
-        if (Arrival_Time[j] < Arrival_Time[i])
-          swap(process_id, Arrival_Time, Burst_Time, i, j);
-        else if (
-          Arrival_Time[j] === Arrival_Time[i] &&
-          process_id[j] < process_id[i]
-        )
-          swap(process_id, Arrival_Time, Burst_Time, i, j);
+      let n = process_id.length;
+      for (let i = 0; i < n; i++) {
+        for (let j = i + 1; j < n; j++) {
+          if (Arrival_Time[j] < Arrival_Time[i])
+            swap(process_id, Arrival_Time, Burst_Time, i, j);
+          else if (
+            Arrival_Time[j] === Arrival_Time[i] &&
+            process_id[j] < process_id[i]
+          )
+            swap(process_id, Arrival_Time, Burst_Time, i, j);
+        }
       }
+      if (process_id.length === 0) alert("Please Input some data");
+      else CalculatingValues(Process_Id, n, Arrival_Time, Burst_Time, quanta);
+
+      count = count + 1;
     }
-    if (process_id.length === 0) alert("Please Input some data");
-    else CalculatingValues(Process_Id, n, Arrival_Time, Burst_Time, quanta);
   };
 
   return (
@@ -370,6 +429,7 @@ const RrSimulate = () => {
             <Text id="10" fontSize="2xl" mt="5%" w="100%"></Text>
             <Text id="11" fontSize="2xl" mt="5%" w="100%"></Text>
             <Text id="12" fontSize="2xl" mt="5%" w="100%" mb="5%"></Text>
+            <div id="gantt"></div>
           </Box>
         ) : (
           <Box w="full" mt="30px">

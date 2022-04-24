@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Box, Heading, Button, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { Chart as ChartJS } from "chart.js/auto";
+import { Chart } from "react-chartjs-2";
+
+import { Bar } from "react-chartjs-2";
 import { useMediaQuery } from "@chakra-ui/react";
 import AddInput from "./FcfsSimulate/AddInput";
 import InputValue from "./FcfsSimulate/InputValue";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import { FaLaptopCode } from "react-icons/fa";
+import reactDom from "react-dom";
 
 //main function for rendering the page
 const FcfsSimulate = () => {
   //for responsiveness
   const [isLargerThan1280] = useMediaQuery("(min-width: 900px)");
-  // Utility methods for Data Input
   let input = [];
   if (localStorage.getItem("input") === null) {
     input = [];
@@ -74,7 +78,9 @@ const FcfsSimulate = () => {
   let total_turn = 0,
     total_wait = 0;
   let timeLine = [],
-    sequence = [];
+    sequence = [],
+    spacing = [],
+    seq_disp = [];
   /* Taking Input as : 
   Array processes: process id
   int n: total number of processes
@@ -118,6 +124,93 @@ const FcfsSimulate = () => {
     }
     timeLine.push(currT);
 
+    let len_s = timeLine.length;
+    for (let i = 0; i < len_s - 1; i++) {
+      if (sequence[i] !== "N/A") {
+        let ar = [timeLine[i], timeLine[i + 1]];
+        spacing.push(ar);
+        seq_disp.push(sequence[i]);
+      }
+    }
+
+    reactDom.render(
+      <table class="table-dark table-striped  table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Process ID</th>
+            <th scope="col">Arrival Time</th>
+            <th scope="col">Burst Time</th>
+            <th scope="col">Completion Time</th>
+            <th scope="col">Allotment Time</th>
+            <th scope="col">Response Time</th>
+            <th scope="col">TurnAround Time</th>
+            <th scope="col">Waiting Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <Text id="o1" fontSize="2xl" mt="5%" w="100%"></Text>
+            </td>
+            <td>
+              <Text id="o2" fontSize="2xl" mt="5%" w="100%"></Text>
+            </td>
+            <td>
+              <Text id="o3" fontSize="2xl" mt="5%" w="100%"></Text>
+            </td>
+            <td>
+              <Text id="o4" fontSize="2xl" mt="5%" w="100%"></Text>
+            </td>
+            <td>
+              <Text id="o5" fontSize="2xl" mt="5%" w="100%"></Text>
+            </td>
+            <td>
+              <Text id="o6" fontSize="2xl" mt="5%" w="100%"></Text>
+            </td>
+            <td>
+              <Text id="o7" fontSize="2xl" mt="5%" w="100%"></Text>
+            </td>
+            <td>
+              <Text id="o8" fontSize="2xl" mt="5%" w="100%"></Text>
+            </td>
+          </tr>
+        </tbody>
+      </table>,
+      document.getElementById("tablehead")
+    );
+    reactDom.render(
+      <Box
+        marginTop="20px"
+        marginBottom="20px"
+        p={7}
+        shadow="2xl"
+        borderWidth="4px"
+        borderColor="blue.200"
+        borderRadius="3xl"
+        w="sm"
+        textAlign="center"
+        backgroundColor={"AppWorkspace"}
+      >
+        <Bar
+          title="Gantt Chart"
+          data={{
+            // Name of the variables on x-axies for each bar
+            labels: seq_disp,
+            datasets: [
+              {
+                label: "Gantt Chart",
+                indexAxis: "y",
+                barPercentage: 0.4,
+                data: spacing,
+                backgroundColor: ["red", "green"],
+              },
+            ],
+          }}
+        />
+      </Box>,
+      document.getElementById("gantt")
+    );
+
     for (let i = 0; i < n; i++) {
       document.getElementById("o1").innerHTML += processes[i] + "<br>";
       document.getElementById("o2").innerHTML += arr[i] + "<br>";
@@ -141,9 +234,9 @@ const FcfsSimulate = () => {
     let s = Math.round((total_wait / n) * 100) / 100;
     let t = Math.round((total_turn / n) * 100) / 100;
     document.getElementById("11").innerHTML =
-      "Average waiting time = " + s + " unit";
+      "Average waiting time = " + s + " sec.";
     document.getElementById("12").innerHTML =
-      "Average turn around time = " + t + " unit";
+      "Average turn around time = " + t + " sec.";
   } //calculatingValues ends here.
 
   // Retriving the input values and storing in array
@@ -163,10 +256,17 @@ const FcfsSimulate = () => {
   const fcfs = (input) => {
     let process_id = Process_Id; // Ids assigned by the program itself
     let n = process_id.length;
-    for (let i = 0; i < n; i++)
-      for (let j = i + 1; j < n; j++)
+    for (let i = 0; i < n; i++) {
+      for (let j = i + 1; j < n; j++) {
         if (Arrival_Time[j] < Arrival_Time[i])
-          swap(Process_Id, Arrival_Time, Burst_Time, i, j);
+          swap(process_id, Arrival_Time, Burst_Time, i, j);
+        else if (
+          Arrival_Time[j] === Arrival_Time[i] &&
+          process_id[j] < process_id[i]
+        )
+          swap(process_id, Arrival_Time, Burst_Time, i, j);
+      }
+    }
 
     if (process_id.length === 0) alert("Please Input some data");
     else CalculatingValues(Process_Id, n, Arrival_Time, Burst_Time);
@@ -206,12 +306,6 @@ const FcfsSimulate = () => {
         </Box>
 
         <AddInput addInput={addInput} />
-        <h3
-          className="mb-20 text-center"
-          style={{ marginBottom: "10px", fontSize: "200%" }}
-        >
-          FCFS Simulate input
-        </h3>
 
         <InputValue inputs={inputs} onDelete={onDelete} />
 
@@ -233,52 +327,14 @@ const FcfsSimulate = () => {
         {isLargerThan1280 ? (
           <Box w="full" mt="30px">
             {/* <p id="output1"></p> */}
-            <table class="table-dark table-striped  table">
-              <thead class="thead-dark">
-                <tr>
-                  <th scope="col">Process ID</th>
-                  <th scope="col">Arrival Time</th>
-                  <th scope="col">Burst Time</th>
-                  <th scope="col">Completion Time</th>
-                  <th scope="col">Allotment Time</th>
-                  <th scope="col">Response Time</th>
-                  <th scope="col">TurnAround Time</th>
-                  <th scope="col">Waiting Time</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <Text id="o1" fontSize="2xl" mt="5%" w="100%"></Text>
-                  </td>
-                  <td>
-                    <Text id="o2" fontSize="2xl" mt="5%" w="100%"></Text>
-                  </td>
-                  <td>
-                    <Text id="o3" fontSize="2xl" mt="5%" w="100%"></Text>
-                  </td>
-                  <td>
-                    <Text id="o4" fontSize="2xl" mt="5%" w="100%"></Text>
-                  </td>
-                  <td>
-                    <Text id="o5" fontSize="2xl" mt="5%" w="100%"></Text>
-                  </td>
-                  <td>
-                    <Text id="o6" fontSize="2xl" mt="5%" w="100%"></Text>
-                  </td>
-                  <td>
-                    <Text id="o7" fontSize="2xl" mt="5%" w="100%"></Text>
-                  </td>
-                  <td>
-                    <Text id="o8" fontSize="2xl" mt="5%" w="100%"></Text>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+
+            <div id="tablehead"></div>
+
             <Text id="o9" fontSize="2xl" mt="5%" w="100%"></Text>
             <Text id="10" fontSize="2xl" mt="5%" w="100%"></Text>
             <Text id="11" fontSize="2xl" mt="5%" w="100%"></Text>
             <Text id="12" fontSize="2xl" mt="5%" w="100%" mb="5%"></Text>
+            <div id="gantt"></div>
           </Box>
         ) : (
           <Box w="full" mt="30px">

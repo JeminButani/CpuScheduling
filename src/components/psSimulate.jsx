@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Box, Heading, Button, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { Chart as ChartJS } from "chart.js/auto";
+import { Chart } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import { useMediaQuery } from "@chakra-ui/react";
 import AddInput from "./psSimulate/_AddInput";
 import InputValue from "./psSimulate/_InputValue";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import { FaLaptopCode } from "react-icons/fa";
+import reactDom from "react-dom";
 
 const PsSimulate = () => {
   //for responsiveness
@@ -76,7 +80,9 @@ const PsSimulate = () => {
   let total_turn = 0,
     total_wait = 0;
   let timeLine = [],
-    sequence = [];
+    sequence = [],
+    spacing = [],
+    seq_disp = [];
 
   /* Taking Input as : 
   Array processes: process id
@@ -161,14 +167,95 @@ const PsSimulate = () => {
     //pushing the last completion time in the timeline.
     timeLine.push(comp[smallest]);
 
+    let len_s = timeLine.length;
+    for (let i = 0; i < len_s - 1; i++) {
+      if (sequence[i] !== "N/A") {
+        let ar = [timeLine[i], timeLine[i + 1]];
+        spacing.push(ar);
+        seq_disp.push(sequence[i]);
+      }
+    }
+
+    reactDom.render(
+      <table class="table-dark table-striped  table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Process ID</th>
+            <th scope="col">Arrival Time</th>
+            <th scope="col">Burst Time</th>
+            <th scope="col">Priority</th>
+            <th scope="col">Completion Time</th>
+            <th scope="col">TurnAround Time</th>
+            <th scope="col">Waiting Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <Text id="o1" fontSize="2xl" mt="5%" w="100%"></Text>
+            </td>
+            <td>
+              <Text id="o2" fontSize="2xl" mt="5%" w="100%"></Text>
+            </td>
+            <td>
+              <Text id="o3" fontSize="2xl" mt="5%" w="100%"></Text>
+            </td>
+            <td>
+              <Text id="13" fontSize="2xl" mt="5%" w="100%"></Text>
+            </td>
+            <td>
+              <Text id="o4" fontSize="2xl" mt="5%" w="100%"></Text>
+            </td>
+            <td>
+              <Text id="o7" fontSize="2xl" mt="5%" w="100%"></Text>
+            </td>
+            <td>
+              <Text id="o8" fontSize="2xl" mt="5%" w="100%"></Text>
+            </td>
+          </tr>
+        </tbody>
+      </table>,
+      document.getElementById("tableHead")
+    );
+
+    reactDom.render(
+      <Box
+        marginTop="20px"
+        marginBottom="20px"
+        p={7}
+        shadow="2xl"
+        borderWidth="4px"
+        borderColor="blue.200"
+        borderRadius="3xl"
+        w="sm"
+        textAlign="center"
+        backgroundColor={"AppWorkspace"}
+      >
+        <Bar
+          title="Gantt Chart"
+          data={{
+            // Name of the variables on x-axies for each bar
+            labels: seq_disp,
+            datasets: [
+              {
+                label: "Gantt Chart",
+                indexAxis: "y",
+                barPercentage: 0.4,
+                data: spacing,
+                backgroundColor: ["red", "green"],
+              },
+            ],
+          }}
+        />
+      </Box>,
+      document.getElementById("gantt")
+    );
     for (let i = 0; i < n; i++) {
       document.getElementById("o1").innerHTML += processes[i] + "<br>";
       document.getElementById("o2").innerHTML += arr[i] + "<br>";
       document.getElementById("o3").innerHTML += bur[i] + "<br>";
       document.getElementById("13").innerHTML += prio[i] + "<br>";
       document.getElementById("o4").innerHTML += comp[i] + "<br>";
-      // document.getElementById("o5").innerHTML += alloted[i] + "<br>";
-      // document.getElementById("o6").innerHTML += response[i] + "<br>";
       document.getElementById("o7").innerHTML += turn[i] + "<br>";
       document.getElementById("o8").innerHTML += wait[i] + "<br>";
     }
@@ -280,64 +367,13 @@ const PsSimulate = () => {
 
         {isLargerThan1280 ? (
           <Box w="full" mt="30px">
-            <table class="table-dark table-striped  table">
-              <thead class="thead-dark">
-                <tr>
-                  <th scope="col">Process ID</th>
-                  <th scope="col">Arrival Time</th>
-                  <th scope="col">Burst Time</th>
-                  <th scope="col">Priority</th>
-                  <th scope="col">Completion Time</th>
-                  {/* <th scope="col">Allotment Time</th>
-        <th scope="col">Response Time</th> */}
-                  <th scope="col">TurnAround Time</th>
-                  <th scope="col">Waiting Time</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <Text id="o1" fontSize="2xl" mt="5%" w="100%"></Text>
-                  </td>
-                  <td>
-                    <Text id="o2" fontSize="2xl" mt="5%" w="100%"></Text>
-                  </td>
-                  <td>
-                    <Text id="o3" fontSize="2xl" mt="5%" w="100%"></Text>
-                  </td>
-                  <td>
-                    <Text id="13" fontSize="2xl" mt="5%" w="100%"></Text>
-                  </td>
-                  <td>
-                    <Text id="o4" fontSize="2xl" mt="5%" w="100%"></Text>
-                  </td>
-                  {/* <td>
-          <Text id="o5" fontSize="2xl" mt="5%" w="100%"></Text>
-        </td>
-        <td>
-          <Text id="o6" fontSize="2xl" mt="5%" w="100%"></Text>
-        </td> */}
-                  <td>
-                    <Text id="o7" fontSize="2xl" mt="5%" w="100%"></Text>
-                  </td>
-                  <td>
-                    <Text id="o8" fontSize="2xl" mt="5%" w="100%"></Text>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-
+            {/* <p id="output1"></p> */}
+            <div id="tableHead"></div>
             <Text id="o9" fontSize="2xl" mt="5%" w="100%"></Text>
             <Text id="10" fontSize="2xl" mt="5%" w="100%"></Text>
             <Text id="11" fontSize="2xl" mt="5%" w="100%"></Text>
             <Text id="12" fontSize="2xl" mt="5%" w="100%" mb="5%"></Text>
-            {/* <Image
-            src={plot}
-            alt="Example1 img"
-            mt="10px"
-            width="60%"
-            ml="20%"
-          /> */}
+            <div id="gantt"></div>
           </Box>
         ) : (
           <Box w="full" mt="30px">
@@ -350,6 +386,7 @@ const PsSimulate = () => {
                   <th scope="col">Arrival Time</th>
                   <th scope="col">Burst Time</th>
                   <th scope="col">Priority</th>
+                  <th scope="col">Completion Time</th>
                 </tr>
               </thead>
               <tbody>
@@ -366,29 +403,28 @@ const PsSimulate = () => {
                   <td>
                     <Text id="13" fontSize="2xl" mt="5%" w="100%"></Text>
                   </td>
+                  <td>
+                    <Text id="o4" fontSize="2xl" mt="5%" w="100%"></Text>
+                  </td>
                 </tr>
               </tbody>
             </table>
             <table class="table-dark table-striped table">
               <thead class="thead-dark">
                 <tr>
-                  <th scope="col">Completion Time</th>
-                  {/* <th scope="col">Allotment Time</th>
-                  <th scope="col">Response Time</th> */}
+                  <th scope="col">Allotment Time</th>
+                  <th scope="col">Response Time</th>
                   <th scope="col">TurnAround Time</th>
                   <th scope="col">Waiting Time</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  {/* <td>
+                  <td>
                     <Text id="o5" fontSize="2xl" mt="5%" w="100%"></Text>
                   </td>
                   <td>
                     <Text id="o6" fontSize="2xl" mt="5%" w="100%"></Text>
-                  </td> */}
-                  <td>
-                    <Text id="o4" fontSize="2xl" mt="5%" w="100%"></Text>
                   </td>
                   <td>
                     <Text id="o7" fontSize="2xl" mt="5%" w="100%"></Text>
@@ -404,13 +440,6 @@ const PsSimulate = () => {
             <Text id="10" fontSize="2xl" mt="5%" w="100%"></Text>
             <Text id="11" fontSize="2xl" mt="5%" w="100%"></Text>
             <Text id="12" fontSize="2xl" mt="5%" w="100%" mb="5%"></Text>
-            {/* <Image
-              src={plot}
-              alt="Example1 img"
-              mt="10px"
-              width="80%"
-              ml="10%"
-            /> */}
           </Box>
         )}
       </Box>

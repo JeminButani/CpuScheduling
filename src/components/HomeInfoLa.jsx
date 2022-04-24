@@ -6,6 +6,7 @@ import HomeImg3 from "../assets/Images/3.svg";
 import Jemin from "../assets/Images/Jemin2.png";
 import Jemil from "../assets/Images/jemil.png";
 import Dhruvit from "../assets/Images/Dhruvit.png";
+import Shrey from "../assets/Images/shrey.png";
 import { LinkBox, LinkOverlay } from "@chakra-ui/react";
 import {
   Button,
@@ -510,6 +511,87 @@ const HomeInfoLa = () => {
                 <LinkBox as="article" maxW="sm" p="5">
                   <LinkOverlay
                     href="https://www.facebook.com/dhruvit.patel.357284"
+                    isExternal
+                  >
+                    <Button colorScheme="facebook" leftIcon={<FaFacebook />}>
+                      Facebook
+                    </Button>
+                  </LinkOverlay>
+                </LinkBox>
+              </HStack>
+            </VStack>
+          </HStack>
+        </VStack>
+
+        {/* shrey */}
+        <VStack>
+          <HStack mt="10%" spacing={6}>
+            <Image
+              src={Shrey}
+              alt="Dhruvit img"
+              mt="10px"
+              width="40%"
+              borderRadius="10%"
+            />
+            <Spacer />
+
+            <VStack spacing={8}>
+              <Heading
+                fontSize="5xl"
+                color="#08c"
+                bgGradient={[
+                  "linear(to-b, orange.100, purple.300)",
+                  "linear(to-t, blue.200, teal.500)",
+                  "linear(to-tr, teal.300, pink.400)",
+                ]}
+                bgClip="text"
+              >
+                Shrey Kulkarni{" "}
+                <Tag size="md" colorScheme="blue" borderRadius="full">
+                  Team Member
+                </Tag>
+                <Text mt={4} fontSize="3xl">
+                  Computer Engineering, PDEU. <br />
+                  20BCP111
+                </Text>
+              </Heading>
+
+              <Text mt={4} fontSize="4xl" color="cyan">
+                "Programmer"
+                <br />
+              </Text>
+              <HStack spacing={4}>
+                {["C++", "Python", "C", "Java"].map((size) => (
+                  <Tag size="lg" key={size} variant="subtle" colorScheme="blue">
+                    {size}
+                  </Tag>
+                ))}
+              </HStack>
+
+              <HStack>
+                <LinkBox as="article" maxW="sm" p="5">
+                  <LinkOverlay
+                    href="https://www.linkedin.com/in/shrey-kulkarni-80b176218?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B0Qr7%2F7MpSIaaA3738pvzYA%3D%3D"
+                    isExternal
+                  >
+                    <Button colorScheme="linkedin" leftIcon={<FaLinkedinIn />}>
+                      LinkedIn
+                    </Button>
+                  </LinkOverlay>
+                </LinkBox>
+                <LinkBox as="article" maxW="sm" p="5">
+                  <LinkOverlay
+                    href="https://www.instagram.com/kulkarnishrey/?hl=en"
+                    isExternal
+                  >
+                    <Button colorScheme="pink" leftIcon={<FaInstagram />}>
+                      Instagram
+                    </Button>
+                  </LinkOverlay>
+                </LinkBox>
+                <LinkBox as="article" maxW="sm" p="5">
+                  <LinkOverlay
+                    href="https://www.facebook.com/shrey.kulkarni.7"
                     isExternal
                   >
                     <Button colorScheme="facebook" leftIcon={<FaFacebook />}>
