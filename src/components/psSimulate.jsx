@@ -295,22 +295,26 @@ const PsSimulate = () => {
     return Priority.push(parseInt(input.prio));
   });
 
+  let count = 0;
   const ps = (input) => {
-    let process_id = Process_Id; // Ids assigned by the program itself
-    let n = process_id.length;
-    for (let i = 0; i < n; i++) {
-      for (let j = i + 1; j < n; j++) {
-        if (Arrival_Time[j] < Arrival_Time[i])
-          swap(process_id, Arrival_Time, Burst_Time, i, j, Priority);
-        else if (
-          Arrival_Time[j] === Arrival_Time[i] &&
-          process_id[j] < process_id[i]
-        )
-          swap(process_id, Arrival_Time, Burst_Time, i, j, Priority);
+    if (count === 0) {
+      let process_id = Process_Id; // Ids assigned by the program itself
+      let n = process_id.length;
+      for (let i = 0; i < n; i++) {
+        for (let j = i + 1; j < n; j++) {
+          if (Arrival_Time[j] < Arrival_Time[i])
+            swap(process_id, Arrival_Time, Burst_Time, i, j, Priority);
+          else if (
+            Arrival_Time[j] === Arrival_Time[i] &&
+            process_id[j] < process_id[i]
+          )
+            swap(process_id, Arrival_Time, Burst_Time, i, j, Priority);
+        }
       }
+      if (process_id.length === 0) alert("Please Input some data");
+      else CalculatingValues(Process_Id, n, Arrival_Time, Burst_Time, Priority);
+      count = count + 1;
     }
-    if (process_id.length === 0) alert("Please Input some data");
-    else CalculatingValues(Process_Id, n, Arrival_Time, Burst_Time, Priority);
   };
 
   return (

@@ -253,23 +253,27 @@ const FcfsSimulate = () => {
     return Burst_Time.push(parseInt(input.burT));
   });
 
+  let count = 0;
   const fcfs = (input) => {
-    let process_id = Process_Id; // Ids assigned by the program itself
-    let n = process_id.length;
-    for (let i = 0; i < n; i++) {
-      for (let j = i + 1; j < n; j++) {
-        if (Arrival_Time[j] < Arrival_Time[i])
-          swap(process_id, Arrival_Time, Burst_Time, i, j);
-        else if (
-          Arrival_Time[j] === Arrival_Time[i] &&
-          process_id[j] < process_id[i]
-        )
-          swap(process_id, Arrival_Time, Burst_Time, i, j);
+    if (count === 0) {
+      let process_id = Process_Id; // Ids assigned by the program itself
+      let n = process_id.length;
+      for (let i = 0; i < n; i++) {
+        for (let j = i + 1; j < n; j++) {
+          if (Arrival_Time[j] < Arrival_Time[i])
+            swap(process_id, Arrival_Time, Burst_Time, i, j);
+          else if (
+            Arrival_Time[j] === Arrival_Time[i] &&
+            process_id[j] < process_id[i]
+          )
+            swap(process_id, Arrival_Time, Burst_Time, i, j);
+        }
       }
-    }
 
-    if (process_id.length === 0) alert("Please Input some data");
-    else CalculatingValues(Process_Id, n, Arrival_Time, Burst_Time);
+      if (process_id.length === 0) alert("Please Input some data");
+      else CalculatingValues(Process_Id, n, Arrival_Time, Burst_Time);
+      count = count + 1;
+    }
   };
 
   return (
