@@ -288,9 +288,10 @@ const HomeInfoLa = () => {
                   "HTML",
                   "CSS",
                   "JavaScript",
+                  "MongoDB",
+                  "ExpressJs",
                   "ReactJs",
                   "NodeJs",
-                  "NextJs",
                 ].map((size) => (
                   <Tag size="lg" key={size} variant="subtle" colorScheme="blue">
                     {size}
@@ -298,11 +299,18 @@ const HomeInfoLa = () => {
                 ))}
               </HStack>
               <HStack spacing={4}>
-                {["ChakraUI", "Bootstrap", "MaterialUI", "Antd"].map((size) => (
-                  <Tag size="lg" key={size} variant="subtle" colorScheme="blue">
-                    {size}
-                  </Tag>
-                ))}
+                {["NextJs", "ChakraUI", "Bootstrap", "MaterialUI", "Antd"].map(
+                  (size) => (
+                    <Tag
+                      size="lg"
+                      key={size}
+                      variant="subtle"
+                      colorScheme="blue"
+                    >
+                      {size}
+                    </Tag>
+                  )
+                )}
               </HStack>
               <HStack spacing={4}>
                 {["Java", "C++", "MYSQL", "PHP"].map((size) => (
