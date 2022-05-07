@@ -332,7 +332,7 @@ const HomeInfoLa = () => {
                 </LinkBox>
                 <LinkBox as="article" maxW="sm" p="5">
                   <LinkOverlay
-                    href="https://www.instagram.com/jamesb_2606/"
+                    href="https://www.instagram.com/jeminbutani_2606/"
                     isExternal
                   >
                     <Button colorScheme="pink" leftIcon={<FaInstagram />}>
